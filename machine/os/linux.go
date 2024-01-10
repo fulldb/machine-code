@@ -20,8 +20,9 @@ func (i LinuxMachine) GetMachine() types.Information {
 	platformUUID, _ := i.GetPlatformUUID()
 	boardSerialNumber, _ := i.GetBoardSerialNumber()
 	cpuSerialNumber, _ := i.GetCpuSerialNumber()
-
+	productName, _ := i.GetProductName()
 	machineData := types.Information{
+		ProductName:       productName,
 		PlatformUUID:      platformUUID,
 		BoardSerialNumber: boardSerialNumber,
 		CpuSerialNumber:   cpuSerialNumber,
@@ -111,6 +112,14 @@ func (i LinuxMachine) GetCpuSerialNumber() (cpuId string, err error) {
 	cpuId = strings.Replace(cpuId, "\t", "", -1)
 	cpuId = strings.Replace(cpuId, "\n", "", -1)
 	cpuId = strings.Replace(cpuId, " ", "-", -1)
+	return
+}
+
+func (i LinuxMachine) GetProductName() (product_name string, err error) {
+	cmds := []*exec.Cmd{
+		exec.Command("cat", "/sys/class/dmi/id/product_name"),
+	}
+	product_name, err = i.execPipeLine(cmds...)
 	return
 }
 
