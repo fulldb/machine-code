@@ -7,11 +7,12 @@ package machine
 
 import (
 	"errors"
-	"github.com/super-l/machine-code/machine/os"
-	"github.com/super-l/machine-code/machine/types"
 	"net"
 	"runtime"
 	"strings"
+
+	"github.com/fulldb/machine-code/machine/os"
+	"github.com/fulldb/machine-code/machine/types"
 )
 
 func GetMachineData() (data types.Information) {
