@@ -120,6 +120,7 @@ func (i LinuxMachine) GetProductName() (product_name string, err error) {
 		exec.Command("cat", "/sys/class/dmi/id/product_name"),
 	}
 	product_name, err = i.execPipeLine(cmds...)
+	product_name = strings.Replace(product_name, "\n", "", -1)
 	return
 }
 
